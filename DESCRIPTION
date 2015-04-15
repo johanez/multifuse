@@ -1,0 +1,8 @@
+Package: multifuse
+Title: multifuse
+Version: 0.0.0.9000
+AuthorsR: Johannes Reiche <johannes.reiche@wur.nl> 
+Description: 
+Depends: R (>= 3.1.2)
+License: WUR
+LazyData: true
