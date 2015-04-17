@@ -90,59 +90,63 @@ plot2ts(dd_ndvi,dd_hvhh_mt,lab_ts1="Landsat NDVI [MD=org]",lab_ts2="PALSAR HHHV"
 plot2ts(dd_ndvi_cc,dd_hvhh_mt,lab_ts1="Landsat NDVI [MD=95]",lab_ts2="PALSAR HHHV")
 
 #################################
-#2) Weighted correlation
+#A MulTiFuse - single steps
 #################################
-#wc <- ts.correlation_A3.plot(dd_ndvi, dd_hvhh_mt,maxdt= NULL,itype="two-ways",interpolation_x="linear",interpolation_y="linear",order_x=1,order_y=1,maxbreaks_x=5,maxbreaks_y=5,name_x="NDVI",name_y="HVHH")
-#wc <- ts.correlation_A3(dd_ndvi_cc, dd_hvhh_mt,maxdt=NULL,itype="two-ways",interpolation_x="linear",interpolation_y="linear",order_x=1,order_y=1,maxbreaks_x=5,maxbreaks_y=5)
-wc <- regressionWeight(dd_ndvi_cc,dd_hvhh_mt)
+xts <- dd_ndvi_cc
+yts <- dd_hvhh_mt
+
+#Step 1a: Calculate correlation weight
+wc <- calcRegWeight(xts,yts)
 
 #plot original overlapping ts
 plot2ts(wc$x,wc$y)
 #plot interpolated overlatpping ts
 plot2ts(wc$xi,wc$yi)
 
+#Step 1b and c: Regression weight optimization and regression analysis
+#opt <- opt_wt.plot(wc$xi,wc$yi,wc$w,max_wt_exp=10,steps=0.1,order=1)
+opt <- optimizeRegWeight(wc$xi,wc$yi,wc$w,max_ewf=10,steps=0.1,order=1,plot=TRUE)
+#optimized ewf
+ewf <- opt$ewf.optimized
 
-# 3 Calculate magnitude weights
-#plot
-#calc.Rsquare_weight.plot(wc$xi,wc$yi,weight=wc$w,order=1)
-#calculate magnitude using exponential weight function (ewf)
-#ewf=0 (no weight)
-#ewf=1 (simple weight)
-#ewf=2 (squared weight)
-ewf=1
-wmago <- wc$w^ewf
-wmago <- wmago * 1/sum(wmago)
-wmago
-#calc.Rsquare_weight.plot(wc$xi,wc$yi,weight=wmago,order=1)
-wRsquared(wc$xi,wc$yi,weight=wmago,order=1,plot=TRUE)
+weight <- wc$w^0 #no regression weight
+weight <- wc$w^1 #simple regression weight
+weight <- wc$w^2 #squared regression weight
+weight <- wc$w^ewf #optimized regression weight
 
-#calculate correlation measures
-vx <- as.vector(wc$xi)
-vy <- as.vector(wc$yi)
-fit=lm(na.omit(vy)~na.omit(vx),weight=wc$w^2)
-summary(fit)
-fit$pvalue
+#calcualte r.squared and plot correlation plot
+wRsquared(wc$xi,wc$yi,weight=weight,order=1,plot=TRUE)
+wRsquared(wc$xi,wc$yi,weight=weight,order=1,plot=TRUE,wpoints=TRUE)
 
-####################
-#Weight optimization
-opt <- opt_wt.plot(wc$xi,wc$yi,wc$w,max_wt_exp=10,steps=0.1,order=1)
-opt <- optimizeWeight(wc$xi,wc$yi,wc$w,max_ewf=10,steps=0.1,order=1,plot=TRUE)
-opt
+
+#Step 2: Univariate time series fusion, using regression based prediction
+xfus <- fusets(xts,yts,wc$xi,wc$yi,wc$weight)
+
+plot2ts(xts,yts) #plot original x and y time series
+plot2ts(xfus,yts) #plot fused x time series with original y time series
 
 #################################
-#3) Fusion
+#B MulTiFuse - wrapper function
 #################################
 
-ewf <- 2
-#if weight optimization 
-max_ewf <- 5
-wt_opt <- TRUE
+#Basic
+xts <- dd_ndvi_cc
+yts <- dd_hvhh_mt
+xfus <- multifuse(xts,yts,optimize=TRUE,plot=TRUE,alpha=0.1)
+xfus
+plot2ts(xfus[[1]],yts)
+plot2ts(xts,yts)
 
-dd_ndvi_ccm <- ts.fusion.correlation_A3.plot(dd_ndvi_cc,dd_hvhh_mt,wt_type = "magnitude",wt_opt=wt_opt,wt_exp=ewf,wt_opt_max_exp=max_ewf,itype="two-ways",name_x="NDVI",name_y="HVHH")
-#fix(ts.fusion.correlation_A3.plot)
 
-plot.2ts(dd_ndvi_cc,dd_hvhh_mt,name_x="NDVI",name_y="HVHH (mt)",points=TRUE)
-plot.2ts(dd_ndvi_ccm,dd_hvhh_mt,name_x="Fused NDVI",name_y="HVHH (mt)",points=TRUE)
+#set paramter
+ewf = 2 #fixed ewf in case no regression weight optimization is done
+optimize=TRUE #optimize regression weight
+max_ewf = 2 #maximum ewf to be optimized
+steps = 0.1 #optimization steps
+order = 1 #regression order
+plot = TRUE #plot weight optimization plot and regression plot
+
+xfus <- multifuse(dd_ndvi_cc,dd_hvhh_mt,ewf=ewf,optimize=optimize,max_ewf=max_ewf,steps=steps,order=order,plot=TRUE)
 
 
 #################################
@@ -151,15 +155,18 @@ plot.2ts(dd_ndvi_ccm,dd_hvhh_mt,name_x="Fused NDVI",name_y="HVHH (mt)",points=TR
 
 formula <- response ~ 1
 order <- 1
-start <- c(2008,1)
-h <- 0.25
+start <- c(2007,1)
+h <- 1
+bfm <- bfastmonitor(xfus[[1]], formula = formula, start = start,order=order, h = h,history="ROC")
+bfm <- bfastmonitor(xts, formula = formula, start = start,order=order, h = h,history="ROC")
 
-bfm <- bfastmonitor_reich006(dd_ndvi_cc, formula = formula, start = start,order=order, h = h,history="ROC",hdyn=TRUE, history_obs_min=2)
-bfm <- bfastmonitor_reich006(dd_ndvi_ccm, formula = formula, start = start,order=order, h = h,history="ROC",hdyn=TRUE, history_obs_min=2)
-bfm <- bfastmonitor_reich006(dd_hvhh_mt, formula = formula,order=order, start = start,history="ROC", h = h, hdyn=TRUE, history_obs_min=2)
+
+bfm <- bfastmonitor_reich006(xts, formula = formula, start = start,order=order, h = h,history="ROC",hdyn=TRUE, history_obs_min=2)
+bfm <- bfastmonitor_reich006(yts, formula = formula, start = start,order=order, h = h,history="ROC",hdyn=TRUE, history_obs_min=2)
+bfm <- bfastmonitor_reich006(xfus[[1]], formula = formula,order=order, start = start,history="ROC", h = h, hdyn=TRUE, history_obs_min=2)
 
 plot(bfm)
-
+bfm$mag
 
 
 

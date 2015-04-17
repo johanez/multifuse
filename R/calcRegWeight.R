@@ -39,7 +39,7 @@
 #weights need to be inverted -> the larger the timediff the smaller the weight
 
 
-regressionWeight <-function(x,y) {
+calcRegWeight <-function(x,y) {
   
   get.inverseweight <- function(w){
     #invert 

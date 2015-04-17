@@ -4,8 +4,8 @@
 \alias{wRsquared}
 \title{Calculate weighted R-squared}
 \usage{
-wRsquared(x, y, weight = NULL, order = 1, plot = FALSE, xlab = "",
-  ylab = "", ylim = NULL, xlim = NULL)
+wRsquared(x, y, weight = NULL, order = 1, plot = FALSE, wpoints = FALSE,
+  xlab = "", ylab = "", ylim = NULL, xlim = NULL)
 }
 \arguments{
 \item{x}{time series or vector (independent variable)}
@@ -17,6 +17,8 @@ wRsquared(x, y, weight = NULL, order = 1, plot = FALSE, xlab = "",
 \item{order}{degree of polynomial with which the relationship is modelled. default=1 (linear regression)}
 
 \item{plot}{optional plot the correlation plot. default=FALSE (no plot)}
+
+\item{wpoints}{size of the correlation points represent the weight. default=FALSE}
 
 \item{xlab}{name for x (plot paramter)}
 

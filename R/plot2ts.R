@@ -59,7 +59,7 @@ plot2ts <- function(ts1,ts2,ylim_ts1=NULL,ylim_ts2=NULL,lab_ts1="",lab_ts2="",co
   p <- plot(zts2,xlim=range(time(ts1)),ylim=ylim_ts2, axes=F, xlab="", ylab="",type="l",col=col_ts2,pch=".")
   #add points for ts2
   if(points==TRUE) {p <- p + points(zts2,xlim=range(time(ts2)),ylim=ylim_ts2, pch = 19,cex=0.5,col="blue")}
-  p <- axis(4, ylim=ylim_ts2,col=col_ts2,lwd=1)
+  p <- axis(4, ylim=ylim_ts2,col=col_ts2,col.axis=col_ts2,lwd=1)
   #add ylab for ts2
   mtext(4,text=lab_ts2,line=2,col=col_ts2)
 }

@@ -13,16 +13,7 @@
 #' 
 #' @export 
 
-
-#xi <- wc$xi
-#yi <- wc$yi
-#weight <- wc$w
-#max_ewf=10
-#steps=0.1
-#order=1
-#plot=FALSE
-
-optimizeWeight <- function(xi,yi,weight,max_ewf=2,steps=1,order=1,plot=FALSE){
+optimizeRegWeight <- function(xi,yi,weight,max_ewf=2,steps=1,order=1,plot=FALSE){
   
   vxi <- as.vector(xi)
   vyi <- as.vector(yi)
@@ -48,16 +39,7 @@ optimizeWeight <- function(xi,yi,weight,max_ewf=2,steps=1,order=1,plot=FALSE){
   pvalue.globalmin <- a[which(a[,2] == min(a[,2])),1]
   pvalue.local_peak <- a[which(diff(c(FALSE,diff(a[,2])>=0,FALSE))<0)]
   rsquared.globalmax <- a[which(a[,3] == max(a[,3])),1]
-  pvalue.local_peak
   
-  #vpvalue <- wc$v.pvalue
-  #length(unique(vpvalue))
-  #length(wc$pvalue.local_peak)
-  #wc$pvalue.globalmin
-  #pvalue.globalmin
-  length(pvalue.local_peak)
-  pvalue.localmin
-  pvalue.localmin[max(pvalue.localmin <= pvalue.local_peak[1])]
   #Determine optimized regression weight
   if(length(unique(vpvalue))==1) {
     ewf.optimized <- 0
@@ -71,12 +53,11 @@ optimizeWeight <- function(xi,yi,weight,max_ewf=2,steps=1,order=1,plot=FALSE){
     }
   }
 
- 
   #pvalue at opitmized ewf
   pvalue.optimized <- formatC(vpvalue[which(vewf == ewf.optimized)],digits=10,format="f")
 
   #create output list
-  rval <- list(
+  output <- list(
     ewf.optimized = ewf.optimized,
     pvalue.optimized = pvalue.optimized,    
     v.ewf = vewf,
@@ -86,7 +67,6 @@ optimizeWeight <- function(xi,yi,weight,max_ewf=2,steps=1,order=1,plot=FALSE){
     pvalue.globalmin = pvalue.globalmin,
     pvalue.local_peak = pvalue.local_peak,
     rsquared.globalmax = rsquared.globalmax
-    #rsquared.non_partial_localmin = nonpartial_localmin_rsquared
   )
   
   #weight optimization plot
@@ -100,13 +80,11 @@ optimizeWeight <- function(xi,yi,weight,max_ewf=2,steps=1,order=1,plot=FALSE){
   p <- plot(vewf,vrsquared,axes=F, ylim=c(0,1),xlab="", ylab="",type="l",lty="dotted",col="blue",pch=".")
   p <- p + points(vewf,vrsquared, pch = 18,cex=0.8,col="blue")
   p <- axis(4, col="blue",lwd=1)
-  mtext(4,text=expression('r'^2),line=2,col="blue")
-  p <- p + axis(4, ylim=c(0,1),col="blue",lwd=1)
-  #abline(v = pvalue.local_peak,lty=3, col="blue")
-  #abline(v = pvalue.localmin,lty=3, col="black",lwd=2)
+  mtext(4,text=expression('r'^2),line=2,col="blue",col.axis="blue")
+  p <- axis(4, ylim=c(0,1),col="blue",col.axis="blue",lwd=1)
   abline(v = ewf.optimized,lty=3, col="red",lwd=2)
-  title(paste("Minimum p-value at ewf=", formatC(ewf.optimized,digits=1,format="f")," (p-value=",formatC(pvalue.optimized,digits=6),")",sep=""),cex.main=1)
+  title(paste("- Weight Optimization Plot -","\n","\n","optimized ewf=", formatC(ewf.optimized,digits=1,format="f")," (p-value=",formatC(pvalue.optimized,digits=4),")",sep=""),cex.main=1)
   }
   
-  return(rval)
+  return(output)
 }
