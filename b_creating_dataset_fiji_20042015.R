@@ -42,6 +42,8 @@ hv_dates
 #restrict to observation period (2005)
 rndvi <- dropLayer(rndvi,c(1:37))
 #rndvi <- dropLayer(rndvi,c(81:96))
+rndvi80 <-dropLayer(rndvi80,c(1:37))
+rndvi70 <-dropLayer(rndvi70,c(1:37))
 rndvi90 <- dropLayer(rndvi90,c(1:37))
 #rndvi90 <- dropLayer(rndvi90,c(81:96))
 ndvi_dates <- ndvi_dates[38:133]
@@ -78,45 +80,16 @@ rndvi90[ls_map==1]<-NA
 stableforest[ls_map==1]<-NA
 loggedforest[ls_map==1]<-NA
 
-save(rndvi,rndvi90,rhv,rhh,rhvhh,stableforest,loggedforest,file="fiji.Rdata")
+###Getting single pixel
+cell <- 2901
+#x[2]<-8056630
+hv_ts <- bfastts(as.vector(rhv[cell]),as.Date(getZ(rhv)),type=c("irregular"))
+ndvi_ts <- bfastts(as.vector(rndvi90[cell]),as.Date(getZ(rndvi)),type=c("irregular"))
+ndvi_ts[193] <- 0.8210577
+ndvi_ts[1296] <- NA
+plot2ts(ndvi_ts,hv_ts,lab_ts1="Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]")
 
-##############
-
-#check percentage Missing data in NDVI time series
-plot(calc.brick.percNA(rndvi,cores=4))
-
-#Increase missing data pecentage
-rndvi95 <- get.brick.tsMD_random(rndvi,0.9,cores=4)
-names(rndvi95) <- names(rndvi)
-plot(calc.brick.percNA(rndvi95,cores=4))
-
-#Reference data
-plot(ylog)
-
-
+save(ndvi_ts,hv_ts,rndvi,rndvi90,rhv,rhh,rhvhh,stableforest,loggedforest,file="fiji.Rdata")
 
 ################
 
-###Getting single pixel
-io <- rhv_mt
-plot(rndvi,2)
-x <- click(io, n=1, id=TRUE, xy=TRUE,cell=TRUE)
-#x[3] <- cellFromXY(io,c(565800, 8056630))
-#x[1]<-565800
-#x[2]<-8056630
-hh <- as.vector(rhh[x[1,3]])
-hv <- as.vector(rhv[x[1,3]])
-hvhh <- as.vector(rhvhh[x[1,3]])
-hh_mt <- as.vector(rhh_mt[x[1,3]])
-hv_mt <- as.vector(rhv_mt[x[1,3]])
-hvhh_mt <- as.vector(rhvhh_mt[x[1,3]])
-ndvi <- as.vector(rndvi[x[1,3]])
-ndvi_cc <- as.vector(rndvi90[x[1,3]])
-dd_hh <- bfastts(hh,hh_dates,type=c("irregular"))
-dd_hv <- bfastts(hv,hv_dates,type=c("irregular"))
-dd_hvhh <- bfastts(hvhh,hv_dates,type=c("irregular"))
-dd_hh_mt <- bfastts(hh_mt,hh_dates,type=c("irregular"))
-dd_hv_mt <- bfastts(hv_mt,hv_dates,type=c("irregular"))
-dd_hvhh_mt <- bfastts(hvhh_mt,hv_dates,type=c("irregular"))
-dd_ndvi <- bfastts(ndvi,ndvi_dates,type=c("irregular"))
-dd_ndvi_cc <- bfastts(ndvi_cc,ndvi_dates,type=c("irregular"))

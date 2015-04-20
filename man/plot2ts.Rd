@@ -33,23 +33,11 @@ plot2ts(ts1, ts2, ylim_ts1 = NULL, ylim_ts2 = NULL, lab_ts1 = "",
 Plot two time series with different Y scales
 }
 \examples{
-#load example raster data
+## load example data
 load("fiji.Rdata")
 
-#Extract pixel time series from raster bricks (Landsat NDVI and ALOS PALSAR HV)
-#option 1: defined cell value
-cell<-2901
-#option 2: select cell on raster
-plot(rhv,1)
-cell <- click(rhv, n=1, cell=TRUE)[,1]
-
-ndvi <- bfastts(as.vector(rndvi[cell]),as.Date(getZ(rndvi)),type=c("irregular"))
-hv <- bfastts(as.vector(rhv[cell]),as.Date(getZ(rhv)),type=c("irregular"))
-
-#Option2: extraction by click
-
-#plot both pixel time series
-plot2ts(ndvi,hv,lab_ts1="Landsat NDVI [MD=org]",lab_ts2="PALSAR HV [dB]")
+## plot Landsat NDVI (ndvi_ts) and ALSO PALSAR HV (hv_ts) example time series
+plot2ts(ndvi_ts,hv_ts,lab_ts1="Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]")
 }
 \author{
 Johannes Reiche

@@ -43,6 +43,7 @@ yts <- hv
 
 #Step 1a: Calculate correlation weight
 wc <- calcRegWeight(xts,yts)
+wc
 #plot original overlapping ts
 plot2ts(wc$x,wc$y)
 #plot interpolated overlatpping ts

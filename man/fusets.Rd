@@ -2,25 +2,26 @@
 % Please edit documentation in R/fusets.R
 \name{fusets}
 \alias{fusets}
-\title{Univariate time series fusion using regresssion based prediction}
+\title{Univariate time series fusion, using regresssion based prediction}
 \usage{
-fusets(xts, yts, xi, yi, weight)
+fusets(xts, yts, xi, yi, w)
 }
 \arguments{
-\item{xts}{original x time series; object of class "ts"}
+\item{xts}{original x time series}
 
 \item{yts}{original y time series}
 
-\item{weight}{vector of weights (one for each correlation pair)}
+\item{xi}{interpolated overlapping x time series. xi is calculated with \link{calcRegWeight}}
 
-\item{max_ewf}{maximum ewf to be considered)}
+\item{yi}{interpolated overlapping y time series. yi is calcualted with \link{calcRegWeight}}
 
-\item{steps}{steps at which the ewf is tested}
-
-\item{plot}{optional plot the weight optimization plot. default=FALSE (no plot)}
+\item{w}{vector of (optimized) multifuse regression weight (one for each correlation pair). w is calculated with \link{calcRegWeight}}
+}
+\value{
+xfus fusted time series
 }
 \description{
-Univariate time series fusion using regresssion based prediction
+Univariate time series fusion, using regresssion based prediction. x time series (xts) gets fused with y time series (yts). The results is the original x time series with additional observations at the observation times of the y time series. A detailed description can be found in Reiche et al. 2015 (Section 3.1.3. "Univariate time series fusion")
 }
 \author{
 Johannes Reiche

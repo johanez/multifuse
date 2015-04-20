@@ -6,6 +6,6 @@ Description:
 Depends: R (>= 3.1.2), 
     raster,
     tseries,
-    bfast,
+    bfast
 License: WUR
 LazyData: true

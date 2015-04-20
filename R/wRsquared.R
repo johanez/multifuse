@@ -1,14 +1,10 @@
 #' @title Calculate weighted R-squared
 #' 
-#' @author Johannes Reiche
-#' 
-#' @description Calculate weighted R-squared from two input time series,using weighted least squares
-#' @description lm {stats} is used for fitting
-#' @description Optional correlation plot
+#' @description Calculate weighted R-squared from two input time series, using weighted least squares. lm {stats} is used for fitting. 
 #' 
 #' @param x time series or vector (independent variable)
 #' @param y time series or vector (dependent variable)
-#' @param weight an optional vector of weights to be used in the fitting process. Should be NULL or a numeric vector. If non-NULL, weighted least squares is used with weights weights (that is, minimizing sum(w*e^2)); otherwise ordinary least squares is used. See also ‘Details’,
+#' @param weigth an optional vector of weights to be used in the fitting process. Should be NULL or a numeric vector. If non-NULL, weighted least squares is used with weights weights (that is, minimizing sum(w*e^2)); otherwise ordinary least squares is used. See also ‘Details’,
 #' @param order degree of polynomial with which the relationship is modelled. default=1 (linear regression)
 #' 
 #' @param plot optional plot the correlation plot. default=FALSE (no plot)
@@ -18,7 +14,9 @@
 #' @param xlim x limits (x1, x2). default=NULL (plot paramter)
 #' @param ylab y limits (x1, x2). default=NULL (plot paramter)
 #' 
-#' @return r.squared and p.value. See lm {stats} for description (plot paramter)
+#' @return rsquared and pvalue. See lm {stats} for description
+#' 
+#' @author Johannes Reiche
 #' 
 #' @export 
 
@@ -37,7 +35,7 @@ wRsquared <- function(x,y,weight=NULL,order=1,plot=FALSE,wpoints=FALSE,xlab="",y
       dat <- data.frame(X = x, Y = y, w = as.vector(weight))
       plot(Y~X, data = dat, ylim=ylim,xlim=xlim,xlab=xlab,ylab=ylab)  
     }
-    #add regression line
+
     r <- range(na.omit(vx))
     xx <- seq(r[1],r[2], length.out=250)
     predict(fit, data.frame(vx=xx))
@@ -45,5 +43,5 @@ wRsquared <- function(x,y,weight=NULL,order=1,plot=FALSE,wpoints=FALSE,xlab="",y
     title(paste("- Correlation Plot -","\n","\n"," r²: ", round(summary(fit)$r.squared,digits=4),";   p-value: ",formatC(anova(fit)$'Pr(>F)'[1],digits=10,format="f"),"   [n=",length(na.omit(x)),"]",sep=""),cex.main=1)    
   } 
   
-  return(list(r.squared = summary(fit)$r.squared,p.value = anova(fit)$'Pr(>F)'[1]))  
+  return(list(rsquared = summary(fit)$r.squared,pvalue = anova(fit)$'Pr(>F)'[1]))  
 }

@@ -12,8 +12,6 @@ wRsquared(x, y, weight = NULL, order = 1, plot = FALSE, wpoints = FALSE,
 
 \item{y}{time series or vector (dependent variable)}
 
-\item{weight}{an optional vector of weights to be used in the fitting process. Should be NULL or a numeric vector. If non-NULL, weighted least squares is used with weights weights (that is, minimizing sum(w*e^2)); otherwise ordinary least squares is used. See also ‘Details’,}
-
 \item{order}{degree of polynomial with which the relationship is modelled. default=1 (linear regression)}
 
 \item{plot}{optional plot the correlation plot. default=FALSE (no plot)}
@@ -26,13 +24,15 @@ wRsquared(x, y, weight = NULL, order = 1, plot = FALSE, wpoints = FALSE,
 
 \item{xlim}{x limits (x1, x2). default=NULL (plot paramter)}
 
+\item{weigth}{an optional vector of weights to be used in the fitting process. Should be NULL or a numeric vector. If non-NULL, weighted least squares is used with weights weights (that is, minimizing sum(w*e^2)); otherwise ordinary least squares is used. See also ‘Details’,}
+
 \item{ylab}{y limits (x1, x2). default=NULL (plot paramter)}
 }
 \value{
-r.squared and p.value. See lm {stats} for description (plot paramter)
+rsquared and pvalue. See lm {stats} for description
 }
 \description{
-Calculate weighted R-squared from two input time series,using weighted least squares
+Calculate weighted R-squared from two input time series, using weighted least squares. lm {stats} is used for fitting.
 }
 \author{
 Johannes Reiche

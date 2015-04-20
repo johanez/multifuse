@@ -2,36 +2,41 @@
 % Please edit documentation in R/calcRegWeight.R
 \name{calcRegWeight}
 \alias{calcRegWeight}
-\title{Calculate probability for deforestation}
+\title{Calculate multifuse regression weight (for two time series)}
 \usage{
 calcRegWeight(x, y)
 }
 \arguments{
-\item{bayts,minN=NULL,maxN=NULL,maxt=NULL,chi_ts1=0.5,chi_ts2=0.5,start=NULL,end=NULL)}{}
+\item{x}{time series 1; object of class \link{ts}}
 
-\item{bayts}{"bayts" time series data frame}
-
-\item{minN}{Minimum number of future observations to confirm the change; Default=NULL -> no minN}
-
-\item{maxN}{Maximum number of future observations to confirm the change; Default=NULL -> no maxN}
-
-\item{maxt}{Maximum time (years) to confirm the change; Default=NULL -> no maxt}
-
-\item{chi_ts1}{Threshold of PChange at which the change is confirmed in case of the last observation is from for time series 2; Default=0.5}
-
-\item{chi_ts2}{Threshold of PChange at which the change is confirmed in case of the last observation is from for time series 2; Default=0.5}
-
-\item{start}{Start date of monitoring period; Default=NULL -> start is start of bayts time series}
-
-\item{end}{End date of monitoring period; Default=NULL -> end is end of bayts time series}
+\item{y}{time series 2; object of class \link{ts}}
 }
 \value{
-Updated "bayts" time series data frame with changes if detected
+A time series data frame with (1) overlapping x and y time series, (2) interpolated x and y time series (xi, yi), (3) x and y magnitude (xmag, ymag) and (4) multifuse regression weight (w).
 }
 \description{
-Calculate probability for deforestation
+Calculates the multifuse regression weight (inverse normalised magnitude) for two time series. A detailed description is given in Reiche et al. 2015 (Section 3.1.2 "Weighted time series correlation" and Section 3.1.2.1 "Deriviation of the time series regression weight").
+}
+\examples{
+## load example data
+load("fiji.Rdata")
+xts <- ndvi_ts #Landsat NDVI example time series
+yts <- hv_ts   #ALSO PALSAR HV example time series
+
+## calculate regression weight
+wc <- calcRegWeight(xts,yts)
+wc     #show time series data frame
+wc$w   #show inverse normalised magnitude (multifuse regression weight)
+
+## plot time series
+plot2ts(xts,yts,lab_ts1="x",lab_ts2="y",title="Original x and y time series")
+plot2ts(wc$x,wc$y,lab_ts1="x",lab_ts2="y",title="Overlapping x and y time series")
+plot2ts(wc$xi,wc$yi,lab_ts1="xi",lab_ts2="yi",title="Interpolated overlapping x and y time series")
 }
 \author{
 Johannes Reiche
+}
+\references{
+Reiche, J., Verbesselt, J., Hoekman, D. H. & Herold, M. (2015): Fusing Landsat and SAR time series to detect deforestation in the tropics. Remote Sensing of Environment. 156, 276-293. DOI: 10.1016/j.rse.2014.10.001. \url{http://www.sciencedirect.com/science/article/pii/S0034425714003885}
 }
 
