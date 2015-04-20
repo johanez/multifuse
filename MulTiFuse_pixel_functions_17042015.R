@@ -47,6 +47,7 @@ ndvi_dates <- ndvi_dates[38:133]
 ndvi_dates <- ndvi_dates[1:80]
 }
 
+
 #check percentage Missing data in NDVI time series
 plot(calc.brick.percNA(rndvi,cores=4))
 
@@ -58,6 +59,9 @@ plot(calc.brick.percNA(rndvi90,cores=4))
 #Reference data
 plot(ylog)
 
+
+
+################
 
 ###Getting single pixel
 io <- rhv_mt
@@ -83,6 +87,16 @@ dd_hvhh_mt <- bfastts(hvhh_mt,hv_dates,type=c("irregular"))
 dd_ndvi <- bfastts(ndvi,ndvi_dates,type=c("irregular"))
 dd_ndvi_cc <- bfastts(ndvi_cc,ndvi_dates,type=c("irregular"))
 
+
+cc <- bfastts(as.vector(tura[50]/10000),as.Date(getZ(tura)),type=c("irregular"))
+data(pinebrick)
+
+rndvi <- setZ(rndvi,ndvi_dates,name='dates')
+getZ(rndvi)
+
+getZ(tura)
+?getZ
+
 #1) Plot SAR data over NDVI
 plot2ts(dd_ndvi,dd_hh_mt,lab_ts1="Landsat NDVI [MD=org]",lab_ts2="PALSAR HH")
 plot2ts(dd_ndvi,dd_hv_mt,lab_ts1="Landsat NDVI [MD=org]",lab_ts2="PALSAR HV")
@@ -97,7 +111,6 @@ yts <- dd_hvhh_mt
 
 #Step 1a: Calculate correlation weight
 wc <- calcRegWeight(xts,yts)
-
 #plot original overlapping ts
 plot2ts(wc$x,wc$y)
 #plot interpolated overlatpping ts
@@ -106,6 +119,7 @@ plot2ts(wc$xi,wc$yi)
 #Step 1b and c: Regression weight optimization and regression analysis
 #opt <- opt_wt.plot(wc$xi,wc$yi,wc$w,max_wt_exp=10,steps=0.1,order=1)
 opt <- optimizeRegWeight(wc$xi,wc$yi,wc$w,max_ewf=10,steps=0.1,order=1,plot=TRUE)
+
 #optimized ewf
 ewf <- opt$ewf.optimized
 

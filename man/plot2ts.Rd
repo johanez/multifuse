@@ -9,28 +9,47 @@ plot2ts(ts1, ts2, ylim_ts1 = NULL, ylim_ts2 = NULL, lab_ts1 = "",
   title = "")
 }
 \arguments{
-\item{ts1}{time series 1 (ts1); object of class "ts"}
+\item{ts1}{time series 1 (ts1); object of class \link{ts}}
 
-\item{ts2}{time series 2 (ts2); object of class "ts"}
+\item{ts2}{time series 2 (ts2); object of class \link{ts}}
 
-\item{ylim_ts1}{the y limits (x1, x2) for ts1. The default value is NULL, indicating that the ylim are set to the min and max value of ts1}
+\item{ylim_ts1}{the y limits (x1, x2) for ts1. The default value is NULL, indicating that the y limits are set to the min and max value of ts1}
 
-\item{ylim_ts2}{the y limits (x1, x2) for ts2. The default value is NULL, indicating that the ylim are set to the min and max value of ts2}
+\item{ylim_ts2}{the y limits (x1, x2) for ts2. The default value is NULL, indicating that the y limits are set to the min and max value of ts2}
 
 \item{lab_ts1}{a title for ts1}
 
 \item{lab_ts2}{a title for ts2}
 
-\item{col_ts1}{colour for ts1. The default value is "black"}
+\item{col_ts1}{colour for ts1}
 
-\item{col_ts2}{colour for ts2. The default value is "blue"}
+\item{col_ts2}{colour for ts2}
 
-\item{points}{add points at time series observations. The default value is TRUE.}
+\item{points}{add points at time series observations. The default value is TRUE}
 
 \item{title}{plot title}
 }
 \description{
 Plot two time series with different Y scales
+}
+\examples{
+#load example raster data
+load("fiji.Rdata")
+
+#Extract pixel time series from raster bricks (Landsat NDVI and ALOS PALSAR HV)
+#option 1: defined cell value
+cell<-2901
+#option 2: select cell on raster
+plot(rhv,1)
+cell <- click(rhv, n=1, cell=TRUE)[,1]
+
+ndvi <- bfastts(as.vector(rndvi[cell]),as.Date(getZ(rndvi)),type=c("irregular"))
+hv <- bfastts(as.vector(rhv[cell]),as.Date(getZ(rhv)),type=c("irregular"))
+
+#Option2: extraction by click
+
+#plot both pixel time series
+plot2ts(ndvi,hv,lab_ts1="Landsat NDVI [MD=org]",lab_ts2="PALSAR HV [dB]")
 }
 \author{
 Johannes Reiche

@@ -41,6 +41,41 @@
 
 calcRegWeight <-function(x,y) {
   
+  get.y_mag_x <- function(x,y){
+    #function that returns magnitude of y-ts for x-ts according to reich006
+    #function expects 2 ts with same length 
+    #time steps for obs in x and y ts
+    tx <- time(x)[!is.na(x)]
+    ty <- time(y)[!is.na(y)]
+    #corresponding values for time steps of x and y ts
+    xn <- na.remove(x)
+    yn <- na.remove(y)
+    #Y magnitudes for x ts steps
+    Y_mag_xn <- tx[NA]
+    #Y magnitudes for x ts (all steps)
+    Y_mag_x <- x
+    Y_mag_x[] <-NA
+    #for 2nd obs in x ts until end of ts
+    for(i in 1:length(tx)){
+      #Exception 1 (y-ts starts after xi, (xi-1:xi) this part is not overlapping)
+      if(min(ty)>tx[i]) {
+        #for x[i-1]:x[i] <- NA
+        Y_mag_x[which(time(x) == tx[i])] <- NA
+        #Exception 2 (y-ts ends before xi-1, (xi-1:xi) this part is not overlapping)
+      } else if (max(ty)<tx[i]){
+        #for x[i-1]:x[i] <- NA
+        Y_mag_x[which(time(x) == tx[i])] <- NA  
+        #no exception
+      } else{
+        Y_mag_xn[i] <- yn[min(which(ty>tx[i]))] - yn[max(which(ty<tx[i]))]
+        Y_mag_xn
+        #for x[i-1]:x[i] <- Y_mag_xn[i] 
+        Y_mag_x[which(time(x) == tx[i])] <- Y_mag_xn[i]  
+      }
+    }
+    return(Y_mag_x)
+  }
+  
   get.inverseweight <- function(w){
     #invert 
     w2 <- max(w[])-w[]+min(w[])
