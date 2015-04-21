@@ -13,7 +13,7 @@ The optimized regressionmodel is utilized in a second step for regression-based 
 
 
 ![fig2_20052014](https://cloud.githubusercontent.com/assets/6399980/7251311/77775dc4-e82a-11e4-8b6b-083cc9051fb8.jpg)
-Schematic overview of MulTiFuse to fuse a optical and SAR time series [Reiche et al. 2015](http://www.sciencedirect.com/science/article/pii/S0034425714003885).
+Figure 1. Schematic overview of MulTiFuse to fuse a optical and SAR time series [Reiche et al. 2015](http://www.sciencedirect.com/science/article/pii/S0034425714003885).
 
 
 ### References
