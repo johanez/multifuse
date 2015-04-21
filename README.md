@@ -24,12 +24,12 @@ Reiche, J., Verbesselt, J., Hoekman, D. H. & Herold, M. (2015): Fusing Landsat a
 
 ### Installation
 The package can be installed directly from github using devtools
-```
+```r
 library(devtools)
 install_github('jreiche/multifuse')
 ```
 ### Apply MulTiFuse
-````
+````r
 ## load multifuse package
 require(multifuse)
 
@@ -50,7 +50,7 @@ plot2ts(ndvi,ndvi_fused,lab_ts1="Landsat NDVI",lab_ts2="Fused Landsat NDVI",ylim
 
 ### Example data
 (A) (Single pixel data) Landsat NDVI (2005 - 2012) and ALOS PALSAR HV (2007 - 2010) example time series
-```
+```r
 ## load example data
 data(tsexample)
 
@@ -58,7 +58,7 @@ data(tsexample)
 plot2ts(ndvi,hv,lab_ts1="Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]")
 ```
 (B) (Raster data) Landsat NDVI (2005 - 2012), ALOS PALSAR HV, HH and HVHH-ratio (2007 - 2010) time series for a pinus caribea planatation in Fiji. Landsat NDVI data is provided with original per pixel missing data and with 90 percent per pixel missing data. Three-monthly harvesting reference data are provided. For a detailed data description refer to [Reiche et al. 2015](http://www.sciencedirect.com/science/article/pii/S0034425714003885). 
-```
+```r
 ## load example data
 data(fiji.rda)
 
