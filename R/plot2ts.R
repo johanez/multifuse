@@ -17,7 +17,7 @@
 #' 
 #' @examples
 #' ## load example data
-#' load("tsexample.rda")
+#' data(tsexample)
 #' 
 #' ## plot Landsat NDVI (ndvi) and ALSO PALSAR HV (hv) example time series
 #' plot2ts(ndvi,hv,lab_ts1="Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]")

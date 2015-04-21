@@ -2,7 +2,7 @@
 #' 
 #' @description Landsat NDVI (2005 - 2012, 20 observations) and ALOS PALSAR HV (2007 - 2010, 10 observations) time series for a pinus caribea planatation with forest being harvested between July - September 2008 followed by replantation.  Two univariate time series objects of the class \link{ts}. 
 #' 
-#' @usage load("tsexample.rda")
+#' @usage data(tsexample)
 #' 
 #' @source Reiche, J., Verbesselt, J., Hoekman, D. H. & Herold, M. (2015): Fusing Landsat and SAR time series to detect deforestation in the tropics. Remote Sensing of Environment. 156, 276-293. DOI: 10.1016/j.rse.2014.10.001. \url{http://www.sciencedirect.com/science/article/pii/S0034425714003885} 
 #' 

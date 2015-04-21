@@ -12,7 +12,7 @@
 #' 
 #' @examples
 #' ## load example data
-#' load("tsexample.rda")
+#' data(tsexample.rda)
 #' xts <- ndvi_ts #Landsat NDVI example time series
 #' yts <- hv_ts   #ALSO PALSAR HV example time series
 #' 
