@@ -37,6 +37,5 @@
 #' @import bfast
 #' @import tseries
 #' @name fiji
-#' @export
 
 NULL
