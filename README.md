@@ -5,10 +5,10 @@ The MulTiFuse approach has been published in [Reiche et al. 2015](http://www.sci
 where it was used to fuse univariate Landsat NDVI and ALOS PALSAR L-band SAR backscatter time series.
 
 ### The MulTiFuse approach
-A detailed description of the MulTiFuse approach is provided in [Reiche et al. 2015](http://www.sciencedirect.com/science/article/pii/S0034425714003885). A brief description is given below:
+A detailed description of the MulTiFuse approach is provided in [Reiche et al. 2015](http://www.sciencedirect.com/science/article/pii/S0034425714003885). A brief description to fuse two univariate optical and SAR time series is given below:
 
 
-First, a weighted timeseries correlation is performed. To maximise the statistical significance of the correlation and to take exceptional cases into account, correlation weight optimization is done before the relationship of the two time series is modelled through a weighted regression analysis. 
+First, a weighted time series correlation is performed. To maximise the statistical significance of the correlation and to take exceptional cases into account, correlation weight optimization is done before the relationship of the two time series is modelled through a weighted regression analysis. 
 The optimized regressionmodel is utilized in a second step for regression-based prediction of time series observation to fuse the two time series.
 
 
