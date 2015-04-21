@@ -36,7 +36,6 @@
 #' 
 #' @import bfast
 #' @import tseries
-#' @export 
+#' @name fiji
 
-fiji <- function(){
-}
+NULL
