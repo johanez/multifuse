@@ -30,19 +30,20 @@ install_github('jreiche/multifuse')
 ```
 ### Apply MulTiFuse
 ````
+## load multifuse package
+require(multifuse)
+
 ## load example data
-load("tsexample.rda")
+load("data\tsexample.rda")
 
 ## plot example time series
-plot2ts(ndvi,hv,lab_ts1="Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]")
-
-## plot original time series
 plot2ts(ndvi,hv,lab_ts1="Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]")
 
 ## apply multifuse
 fus <- multifuse(ndvi,hv,optimize=TRUE,ewf_max=2,ewf_steps=0.1, plot=TRUE)
 
-ndvi_fused<- fus[[1]] #fused time series
+## get fused time series from multifuse output
+ndvi_fused<- fus[[1]]
 
 ##plot fused time series
 plot2ts(ndvi,ndvi_fused,lab_ts1="Fused Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]",ylim_ts1=c(0.3,0.9),ylim_ts2=c(0.3,0.9))
@@ -53,14 +54,14 @@ plot2ts(ndvi,ndvi_fused,lab_ts1="Fused Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB
 (A) (Single pixel data) Landsat NDVI (2005 - 2012) and ALOS PALSAR HV (2007 - 2010) example time series
 ```
 ## load example data
-load("tsexample.rda")
+load("data\tsexample.rda")
 ## plot example time series
 plot2ts(ndvi,hv,lab_ts1="Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]")
 ```
 (B) (Raster data) Landsat NDVI (2005 - 2012), ALOS PALSAR HV, HH and HVHH-ratio (2007 - 2010) time series for a pinus caribea planatation. Landsat NDVI data is provided with original per pixel missing data and with 90 percent per pixel missing data. Three-monthly harvesting reference data are provided. For a detailed data description refer to [Reiche et al. 2015](http://www.sciencedirect.com/science/article/pii/S0034425714003885). 
 ```
 ## load example data
-load("fiji.rda")
+load("data\fiji.rda")
 
 ## show reference data
 plot(loggedforest)
