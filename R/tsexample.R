@@ -1,6 +1,6 @@
 #' @title Landsat NDVI and ALSO PALSAR HV example time series 
 #' 
-#' @description Landsat NDVI (2005 - 2012, 11 observations) and ALOS PALSAR HV (2007 - 2010, 10 observations) time series for a pinus caribea planatation under very cloud conditions. Forest is harvested between July - September 2008 followed by replantation.  Two univariate time series objects of the class \link{ts}. 
+#' @description Landsat NDVI (2005 - 2012, 20 observations) and ALOS PALSAR HV (2007 - 2010, 10 observations) time series for a pinus caribea planatation under very cloud conditions. Forest is harvested between July - September 2008 followed by replantation.  Two univariate time series objects of the class \link{ts}. 
 #' 
 #' @usage load("tsexample.rda")
 #' 
