@@ -2,7 +2,7 @@
 
 Package to apply the Multi-sensor Time series Fusion (MulTiFuse) approach to two univariat time series. 
 The MulTiFuse approach has been published in [Reiche et al. 2015](http://www.sciencedirect.com/science/article/pii/S0034425714003885), 
-and was used to fuse univariate Landsat NDVI and ALOS PALSAR backscatter time series.
+where it was used to fuse univariate Landsat NDVI and ALOS PALSAR L-band SAR backscatter time series.
 
 ### The MulTiFuse approach
 A detailed description of the MulTiFuse approach is provided in [Reiche et al. 2015](http://www.sciencedirect.com/science/article/pii/S0034425714003885). A brief description is given below:
