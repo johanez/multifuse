@@ -29,8 +29,8 @@ library(devtools)
 install_github('jreiche/multifuse')
 ```
 ### Apply MulTiFuse
-```
-**## load example data**
+````
+## load example data
 load("tsexample.rda")
 
 ## plot example time series
@@ -48,7 +48,7 @@ xfus <- multifuse(xts,yts,optimize=TRUE,ewf_max=2,ewf_steps=0.1, plot=TRUE)
 
 ##plot fused time series
 plot2ts(xfus[[1]],yts,lab_ts1="Fused Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]")
-```
+````
 
 ### Example data
 (A) (Single pixel data) Landsat NDVI (2005 - 2012) and ALOS PALSAR HV (2007 - 2010) example time series
