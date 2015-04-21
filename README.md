@@ -43,7 +43,7 @@ fus <- multifuse(ndvi,hv,optimize=TRUE,ewf_max=2,ewf_steps=0.1, plot=TRUE)
 ## get fused time series from multifuse output
 ndvi_fused<- fus[[1]]
 
-##plot fused time series
+##plot original ndvi time series and fused time series
 plot2ts(ndvi,ndvi_fused,lab_ts1="Fused Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]",ylim_ts1=c(0.3,0.9),ylim_ts2=c(0.3,0.9))
 
 ````
