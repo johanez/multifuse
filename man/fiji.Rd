@@ -7,14 +7,14 @@
 Reiche, J., Verbesselt, J., Hoekman, D. H. & Herold, M. (2015): Fusing Landsat and SAR time series to detect deforestation in the tropics. Remote Sensing of Environment. 156, 276-293. DOI: 10.1016/j.rse.2014.10.001. \url{http://www.sciencedirect.com/science/article/pii/S0034425714003885}
 }
 \usage{
-load("fiji.rda")
+data(fiji)
 }
 \description{
 Landsat NDVI (2005 - 2012), ALOS PALSAR HV, HH and HVHH-ratio (2007 - 2010) time series for a pinus caribea planatation. Landsat NDVI data is provided with original per pixel missing data and with 90 percent per pixel missing data. Three-monthly harvesting refernece data are provided.
 }
 \examples{
 ## load example data
-load("fiji.rda")
+data(fiji)
 
 ## show reference data
 plot(loggedforest)

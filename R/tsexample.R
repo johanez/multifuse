@@ -16,5 +16,6 @@
 #' plot2ts(ndvi,hv,lab_ts1="Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]")
 #' 
 #' @name tsexample
+#' @export
 
 NULL

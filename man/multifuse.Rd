@@ -31,11 +31,11 @@ multifuse(xts, yts, ewf = 1, optimize = TRUE, ewf_max = 2,
 (1) fused time series, (2) ewf, (3) pvalue and (4) rsquared
 }
 \description{
-Pixel-based Multi-sensor Time series Fusion (MulTiFuse) of two univariat time series. "multifuse" wrapps the core functions of the MulTiFuse approach. First, a weighted timeseries correlation is performed (\link{calcRegWeight}). To maximise the statistical significance of the correlation and to take exceptional cases into account, correlation weight optimization is done (\link{optimizeRegWeight}) before the relationship of the two time series is modelled through a weighted regression analysis \link{wRsquared}. The optimized regression model is utilized in a second step for regression-based prediction of time series observation to fuse the SAR and optical time series (\link{regfuse}). The output is a fused time series consisting of the original x time series observations and additional x observations at the observation times of the y time series. A detailed description of the MulTiFuse approach can be found in Reiche et. al. 2015 (see reference below).
+Pixel-based Multi-sensor Time series Fusion (MulTiFuse) of two univariat time series. "multifuse" wraps the core functions of the MulTiFuse approach. First, a weighted timeseries correlation is performed (\link{calcRegWeight}). To maximise the statistical significance of the correlation and to take exceptional cases into account, correlation weight optimization is done (\link{optimizeRegWeight}) before the relationship of the two time series is modelled through a weighted regression analysis \link{wRsquared}. The optimized regression model is utilized in a second step for regression-based prediction of time series observation to fuse the SAR and optical time series (\link{regfuse}). The output is a fused time series consisting of the original x time series observations and additional x observations at the observation times of the y time series. A detailed description of the MulTiFuse approach can be found in Reiche et. al. 2015 (see reference below).
 }
 \examples{
 ## load example data
-load("tsexample.rda")
+data(tsexample.rda)
 xts <- ndvi #Landsat NDVI example time series
 yts <- hv   #ALSO PALSAR HV example time series
 plot2ts(xts,yts,lab_ts1="Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]")
