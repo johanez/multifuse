@@ -28,23 +28,51 @@ Reiche, J., Verbesselt, J., Hoekman, D. H. & Herold, M. (2015): Fusing Landsat a
 
 # Using the multifuse package
 
-### Loading example data
+### Example data
 (A) Landsat NDVI (2005 - 2012) and ALOS PALSAR HV (2007 - 2010) example time series
 ```
 ## load example data
 load("tsexample.rda")
-xts <- ndvi #Landsat NDVI example time series
-yts <- hv   #ALSO PALSAR HV example time series
+## plot example time series
+plot2ts(ndvi,hv,lab_ts1="Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]")
 ```
 (B) (Raster data) Landsat NDVI (2005 - 2012), ALOS PALSAR HV, HH and HVHH-ratio (2007 - 2010) time series.
+```
+## load example data
+load("fiji.rda")
 
+## show reference data
+plot(loggedforest)
+plot(stableforest,legend=FALSE,add=TRUE)
 
+## extract pixel time series
+#option 1: define cell  
+cell<-2901
+#option 2: select cell  
+plot(rhv,3)
+cell <- click(rhv, n=1, cell=TRUE)[,1]
+
+#create time series using bfastts (bfast package)
+hv <- bfastts(as.vector(rhv[cell]),as.Date(getZ(rhv)),type=c("irregular"))
+hh <- bfastts(as.vector(rhh[cell]),as.Date(getZ(rhh)),type=c("irregular"))
+hvhh <- bfastts(as.vector(rhvhh[cell]),as.Date(getZ(rhvhh)),type=c("irregular"))
+ndvi <- bfastts(as.vector(rndvi[cell]),as.Date(getZ(rndvi)),type=c("irregular"))
+ndvi90 <- bfastts(as.vector(rndvi90[cell]),as.Date(getZ(rndvi90)),type=c("irregular"))
+
+#plot time series
+plot2ts(ndvi,hv,lab_ts1="Landsat NDVI [MD=org]",lab_ts2="PALSAR HV [dB]")
+plot2ts(ndvi90,hv,lab_ts1="Landsat NDVI [MD=90]",lab_ts2="PALSAR HV [dB]")
+```
+
+### Apply MulTiFuse
+```
+## select original time series
+xts <- ndvi
+yts <- hv
 ## plot original time series
 plot2ts(xts,yts,lab_ts1="Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]")
- 
 ## apply multifuse
 xfus <- multifuse(xts,yts,optimize=TRUE,ewf_max=2,ewf_steps=0.1, plot=TRUE)
-
 ##plot fused time series
 plot2ts(xfus[[1]],yts,lab_ts1="Fused Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]")
 ```
