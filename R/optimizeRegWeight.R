@@ -5,8 +5,8 @@
 #' @param xi interpolated x time series 
 #' @param yi interpolated y time series 
 #' @param w vector of multifuse regression weights (one for each correlation pair)
-#' @param max_ewf maximum ewf to be considered. default=2.
-#' @param steps steps at which the ewf is tested. The default=1.
+#' @param ewf_max maximum ewf to be considered. default=2.
+#' @param ewf_steps steps at which the ewf is tested. The default=0.1.
 #' @param plot optional plot the weight optimization plot. default=FALSE (no plot) 
 #'
 #' @return A list with (1) optimized ewf (ewf.optimized), (2) p-value found for optimized ewf (pvalue.optimized), and further paramter
@@ -17,7 +17,7 @@
 #' 
 #' @examples
 #' ## load example data
-#' load("fiji.Rdata") 
+#' load("tsexample.rda")
 #' xts <- ndvi_ts #Landsat NDVI example time series
 #' yts <- hv_ts   #ALSO PALSAR HV example time series
 #' 
@@ -30,19 +30,13 @@
 #' opt <- optimizeRegWeight(wc$xi,wc$yi,wc$w,max_ewf=10,steps=0.1,order=1,plot=TRUE)
 #  ewf <- opt$ewf.optimized   #optimized ewf
 #' 
-#' ## plot time series
-#' plot2ts(xts,yts,lab_ts1="x",lab_ts2="y",title="Original x and y time series")
-#' plot2ts(wc$x,wc$y,lab_ts1="x",lab_ts2="y",title="Overlapping x and y time series")   
-#' plot2ts(wc$xi,wc$yi,lab_ts1="xi",lab_ts2="yi",title="Interpolated overlapping x and y time series") 
-#' 
-#' 
 #' @import raster
 #' @import tseries
 #' @export 
 #' 
 
 
-optimizeRegWeight <- function(xi,yi,w,max_ewf=2,steps=1,order=1,plot=FALSE){
+optimizeRegWeight <- function(xi,yi,w,ewf_max=2,ewf_steps=0.1,order=1,plot=FALSE){
   
   vxi <- as.vector(xi)
   vyi <- as.vector(yi)
@@ -54,7 +48,7 @@ optimizeRegWeight <- function(xi,yi,w,max_ewf=2,steps=1,order=1,plot=FALSE){
   l <- 1
   
   #calculate r-squared, p-value for increasing exponent
-  for(i in seq(from=0, to=max_ewf, by=steps)) {
+  for(i in seq(from=0, to=ewf_max, by=ewf_steps)) {
     fit=lm(na.omit(vyi)~poly(na.omit(vxi),order),weight=w^i)
     vpvalue[l] <- anova(fit)$'Pr(>F)'[1]
     vrsquared[l] <- summary(fit)$r.squared
@@ -82,13 +76,15 @@ optimizeRegWeight <- function(xi,yi,w,max_ewf=2,steps=1,order=1,plot=FALSE){
     }
   }
   
-  #pvalue at opitmized ewf
+  #pvalue and rsquared at opitmized ewf
   pvalue.optimized <- formatC(vpvalue[which(vewf == ewf.optimized)],digits=10,format="f")
+  rsquared.optimized <- formatC(vrsquared[which(vewf == ewf.optimized)],digits=10,format="f")
   
   #Create output list
   output <- list(
     ewf.optimized = ewf.optimized,
-    pvalue.optimized = pvalue.optimized,    
+    pvalue.optimized = pvalue.optimized,  
+    rsquared.optimized = rsquared.optimized,
     v.ewf = vewf,
     v.pvalue = vpvalue,
     v.rsquared = vrsquared,
@@ -112,7 +108,7 @@ optimizeRegWeight <- function(xi,yi,w,max_ewf=2,steps=1,order=1,plot=FALSE){
     mtext(4,text=expression('r'^2),line=2,col="blue",col.axis="blue")
     p <- axis(4, ylim=c(0,1),col="blue",col.axis="blue",lwd=1)
     abline(v = ewf.optimized,lty=3, col="red",lwd=2)
-    title(paste("- Weight Optimization Plot -","\n","\n","optimized ewf=", formatC(ewf.optimized,digits=1,format="f")," (p-value=",formatC(pvalue.optimized,digits=4),")",sep=""),cex.main=1)
+    title(paste("- Weight Optimization Plot -","\n","\n","optimized ewf=", formatC(ewf.optimized,digits=1,format="f")," (pvalue=",formatC(pvalue.optimized,digits=4)," r²: ", round(summary(fit)$r.squared,digits=4),", r²=",formatC(rsquared.optimized,digits=2),")",sep=""),cex.main=1)
   }
   
   return(output)

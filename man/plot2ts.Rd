@@ -30,14 +30,14 @@ plot2ts(ts1, ts2, ylim_ts1 = NULL, ylim_ts2 = NULL, lab_ts1 = "",
 \item{title}{plot title}
 }
 \description{
-Plot two time series with different Y scales
+Plot two time series with different y-scales
 }
 \examples{
 ## load example data
-load("fiji.Rdata")
+load("tsexample.rda")
 
-## plot Landsat NDVI (ndvi_ts) and ALSO PALSAR HV (hv_ts) example time series
-plot2ts(ndvi_ts,hv_ts,lab_ts1="Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]")
+## plot Landsat NDVI (ndvi) and ALSO PALSAR HV (hv) example time series
+plot2ts(ndvi,hv,lab_ts1="Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]")
 }
 \author{
 Johannes Reiche

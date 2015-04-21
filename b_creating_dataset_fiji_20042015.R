@@ -83,13 +83,21 @@ loggedforest[ls_map==1]<-NA
 ###Getting single pixel
 cell <- 2901
 #x[2]<-8056630
-hv_ts <- bfastts(as.vector(rhv[cell]),as.Date(getZ(rhv)),type=c("irregular"))
-ndvi_ts <- bfastts(as.vector(rndvi90[cell]),as.Date(getZ(rndvi)),type=c("irregular"))
-ndvi_ts[193] <- 0.8210577
-ndvi_ts[1296] <- NA
-plot2ts(ndvi_ts,hv_ts,lab_ts1="Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]")
+hv <- bfastts(as.vector(rhv[cell]),as.Date(getZ(rhv)),type=c("irregular"))
+ndvi <- bfastts(as.vector(rndvi80[cell]),as.Date(getZ(rndvi)),type=c("irregular"))
+ndvi[193] <- 0.8210577
+ndvi[1360] <- NA
+ndvi[1296] <- NA
+ndvi[2494] <- 0.6647834
+ndvi[1488] <- NA
+ndvi[1540] <- 0.5798608
+ndvi
+ndvi <- window(ndvi, end = time(ndvi)[2535])
 
-save(ndvi_ts,hv_ts,rndvi,rndvi90,rhv,rhh,rhvhh,stableforest,loggedforest,file="fiji.Rdata")
+plot2ts(ndvi,hv,lab_ts1="Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]")
+save(ndvi,hv,file="tsexample.rda")
+
+save(rndvi,rndvi90,rhv,rhh,rhvhh,stableforest,loggedforest,file="fiji.rda")
 
 ################
 

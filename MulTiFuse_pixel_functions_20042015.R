@@ -15,7 +15,7 @@ source("Functions.correlation.24012014.R")
 
 ##################
 #load fiji raster data
-load("fiji.Rdata")
+load("fiji.rda")
 
 #show reference data
 plot(loggedforest)
@@ -38,7 +38,7 @@ plot2ts(ndvi90,hv,lab_ts1="Landsat NDVI [MD=95]",lab_ts2="PALSAR HV [dB]")
 ################################
 #A MulTiFuse - single steps
 #################################
-xts <- ndvi90
+xts <- ndvi
 yts <- hv
 
 #Step 1a: Calculate correlation weight
@@ -51,7 +51,7 @@ plot2ts(wc$xi,wc$yi)
 
 #Step 1b and c: Regression weight optimization and regression analysis
 #opt <- opt_wt.plot(wc$xi,wc$yi,wc$w,max_wt_exp=10,steps=0.1,order=1)
-opt <- optimizeRegWeight(wc$xi,wc$yi,wc$w,max_ewf=10,steps=0.1,order=1,plot=TRUE)
+opt <- optimizeRegWeight(wc$xi,wc$yi,wc$w,max_ewf=2,steps=0.1,order=1,plot=TRUE)
 
 #optimized ewf
 ewf <- opt$ewf.optimized
@@ -76,22 +76,25 @@ plot2ts(xfus,yts) #plot fused x time series with original y time series
 #B MulTiFuse - wrapper function
 #################################
 
-#Basic
-xts <- ndvi90
+
+load("tsexample.rda")
+xts <- ndvi
 yts <- hv
-xfus <- multifuse(xts,yts,optimize=TRUE,plot=TRUE,alpha=0.1)
+xfus <- multifuse(xts,yts,optimize=TRUE,plot=TRUE)
 xfus
+
 plot2ts(xfus[[1]],yts)
 plot2ts(xts,yts)
 
 
 #set paramter
-ewf = 2 #fixed ewf in case no regression weight optimization is done
+ewf = 2       #fixed ewf in case no regression weight optimization is done
 optimize=TRUE #optimize regression weight
-max_ewf = 2 #maximum ewf to be optimized
-steps = 0.1 #optimization steps
-order = 1 #regression order
-plot = TRUE #plot weight optimization plot and regression plot
+max_ewf = 2   #maximum ewf to be optimized
+steps = 0.1   #optimization steps
+order = 1     #regression order
+plot = TRUE   #plot weight optimization plot and regression plot
+alpha = 1     #maximum p-value to perform fusion. In case pvalue is > alpha no fusion is performed.
 
 xfus <- multifuse(dd_ndvi_cc,dd_hvhh_mt,ewf=ewf,optimize=optimize,max_ewf=max_ewf,steps=steps,order=order,plot=TRUE)
 

@@ -12,7 +12,7 @@
 #' 
 #' @examples
 #' ## load example data
-#' load("fiji.Rdata") 
+#' load("tsexample.rda")
 #' xts <- ndvi_ts #Landsat NDVI example time series
 #' yts <- hv_ts   #ALSO PALSAR HV example time series
 #' 
@@ -149,7 +149,7 @@ calcRegWeight <-function(x,y) {
   yiw <- yiw[!is.na(dummy)] 
   xmag <- xmag[!is.na(dummy)] 
   ymag <- ymag[!is.na(dummy)] 
-
+  
   wc <- merge(zxw,zyw,xiw,yiw,xmag,ymag,zxw[]<-NA)
   names(wc) <- c("x", "y", "xi", "yi","xmag", "ymag","w")  
   

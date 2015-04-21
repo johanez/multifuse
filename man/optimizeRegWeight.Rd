@@ -4,7 +4,7 @@
 \alias{optimizeRegWeight}
 \title{Optimize regression weight}
 \usage{
-optimizeRegWeight(xi, yi, w, max_ewf = 2, steps = 1, order = 1,
+optimizeRegWeight(xi, yi, w, ewf_max = 2, ewf_steps = 0.1, order = 1,
   plot = FALSE)
 }
 \arguments{
@@ -14,9 +14,9 @@ optimizeRegWeight(xi, yi, w, max_ewf = 2, steps = 1, order = 1,
 
 \item{w}{vector of multifuse regression weights (one for each correlation pair)}
 
-\item{max_ewf}{maximum ewf to be considered. default=2.}
+\item{ewf_max}{maximum ewf to be considered. default=2.}
 
-\item{steps}{steps at which the ewf is tested. The default=1.}
+\item{ewf_steps}{steps at which the ewf is tested. The default=0.1.}
 
 \item{plot}{optional plot the weight optimization plot. default=FALSE (no plot)}
 }
@@ -28,7 +28,7 @@ Optimize multifuse regression weight. The optimized regression weight is determi
 }
 \examples{
 ## load example data
-load("fiji.Rdata")
+load("tsexample.rda")
 xts <- ndvi_ts #Landsat NDVI example time series
 yts <- hv_ts   #ALSO PALSAR HV example time series
 
@@ -39,11 +39,6 @@ wc$w   #show inverse normalised magnitude (multifuse regression weight)
 
 ## optimize regression weight
 opt <- optimizeRegWeight(wc$xi,wc$yi,wc$w,max_ewf=10,steps=0.1,order=1,plot=TRUE)
-
-## plot time series
-plot2ts(xts,yts,lab_ts1="x",lab_ts2="y",title="Original x and y time series")
-plot2ts(wc$x,wc$y,lab_ts1="x",lab_ts2="y",title="Overlapping x and y time series")
-plot2ts(wc$xi,wc$yi,lab_ts1="xi",lab_ts2="yi",title="Interpolated overlapping x and y time series")
 }
 \author{
 Johannes Reiche

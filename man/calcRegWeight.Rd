@@ -19,7 +19,7 @@ Calculates the multifuse regression weight (inverse normalised magnitude) for tw
 }
 \examples{
 ## load example data
-load("fiji.Rdata")
+load("tsexample.rda")
 xts <- ndvi_ts #Landsat NDVI example time series
 yts <- hv_ts   #ALSO PALSAR HV example time series
 

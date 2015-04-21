@@ -1,6 +1,6 @@
 #' @title Plot two time series with different Y scales
 #' 
-#' @description Plot two time series with different Y scales
+#' @description Plot two time series with different y-scales
 #' 
 #' @param ts1 time series 1 (ts1); object of class \link{ts}
 #' @param ts2 time series 2 (ts2); object of class \link{ts}
@@ -17,10 +17,10 @@
 #' 
 #' @examples
 #' ## load example data
-#' load("fiji.Rdata") 
+#' load("tsexample.rda")
 #' 
-#' ## plot Landsat NDVI (ndvi_ts) and ALSO PALSAR HV (hv_ts) example time series
-#' plot2ts(ndvi_ts,hv_ts,lab_ts1="Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]")
+#' ## plot Landsat NDVI (ndvi) and ALSO PALSAR HV (hv) example time series
+#' plot2ts(ndvi,hv,lab_ts1="Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]")
 #' 
 #' @export 
 
