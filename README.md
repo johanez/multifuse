@@ -28,6 +28,27 @@ The package can be installed directly from github using devtools
 library(devtools)
 install_github('jreiche/multifuse')
 ```
+### Apply MulTiFuse
+```
+## load example data
+load("tsexample.rda")
+
+## plot example time series
+plot2ts(ndvi,hv,lab_ts1="Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]")
+
+## select original time series
+xts <- ndvi
+yts <- hv
+
+## plot original time series
+plot2ts(xts,yts,lab_ts1="Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]")
+
+## apply multifuse
+xfus <- multifuse(xts,yts,optimize=TRUE,ewf_max=2,ewf_steps=0.1, plot=TRUE)
+
+##plot fused time series
+plot2ts(xfus[[1]],yts,lab_ts1="Fused Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]")
+```
 
 ### Example data
 (A) (Single pixel data) Landsat NDVI (2005 - 2012) and ALOS PALSAR HV (2007 - 2010) example time series
@@ -65,24 +86,3 @@ plot2ts(ndvi,hv,lab_ts1="Landsat NDVI [MD=org]",lab_ts2="PALSAR HV [dB]")
 plot2ts(ndvi90,hv,lab_ts1="Landsat NDVI [MD=90]",lab_ts2="PALSAR HV [dB]")
 ```
 
-### Apply MulTiFuse
-```
-## load example data
-load("tsexample.rda")
-
-## plot example time series
-plot2ts(ndvi,hv,lab_ts1="Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]")
-
-## select original time series
-xts <- ndvi
-yts <- hv
-
-## plot original time series
-plot2ts(xts,yts,lab_ts1="Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]")
-
-## apply multifuse
-xfus <- multifuse(xts,yts,optimize=TRUE,ewf_max=2,ewf_steps=0.1, plot=TRUE)
-
-##plot fused time series
-plot2ts(xfus[[1]],yts,lab_ts1="Fused Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]")
-```
