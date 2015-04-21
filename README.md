@@ -35,13 +35,11 @@ require(multifuse)
 
 ## load example data
 load("data\tsexample.rda")
-
 ## plot example time series
 plot2ts(ndvi,hv,lab_ts1="Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]")
 
 ## apply multifuse
 fus <- multifuse(ndvi,hv,optimize=TRUE,ewf_max=2,ewf_steps=0.1, plot=TRUE)
-
 ## get fused time series from multifuse output
 ndvi_fused<- fus[[1]]
 
@@ -55,6 +53,7 @@ plot2ts(ndvi,ndvi_fused,lab_ts1="Fused Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB
 ```
 ## load example data
 load("data\tsexample.rda")
+
 ## plot example time series
 plot2ts(ndvi,hv,lab_ts1="Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]")
 ```
