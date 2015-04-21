@@ -40,10 +40,13 @@ plot2ts(ndvi,hv,lab_ts1="Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]")
 plot2ts(ndvi,hv,lab_ts1="Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]")
 
 ## apply multifuse
-ndvi_fused <- multifuse(ndvi,hv,optimize=TRUE,ewf_max=2,ewf_steps=0.1, plot=TRUE)
+fus <- multifuse(ndvi,hv,optimize=TRUE,ewf_max=2,ewf_steps=0.1, plot=TRUE)
+
+ndvi_fused<- fus[[1]] #fused time series
 
 ##plot fused time series
-plot2ts(ndvi_fuse,hv,lab_ts1="Fused Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]")
+plot2ts(ndvi,ndvi_fused,lab_ts1="Fused Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]",ylim_ts1=c(0.3,0.9),ylim_ts2=c(0.3,0.9))
+
 ````
 
 ### Example data
