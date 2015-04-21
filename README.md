@@ -30,7 +30,7 @@ install_github('jreiche/multifuse')
 ```
 ### Apply MulTiFuse
 ```
-## load example data
+<span style="color: grey">## load example data </span>
 load("tsexample.rda")
 
 ## plot example time series
