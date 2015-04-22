@@ -12,7 +12,7 @@
 #' @param plot Optional weight optimization plot and regression plot. 
 #' @param alpha Optional p-value threshold up to which fusion is performed. In case pvalue is > alpha no fusion is performed. Default value is 1.
 #'
-#' @return (1) fused time series, (2) ewf, (3) pvalue and (4) rsquared
+#' @return (1) fused time series, (2) ewf used for weighted time series correlation, (3) pvalue and (4) rsquared of the weighted correlation between time series 1 and 2
 #' 
 #' @author Johannes Reiche
 #' 

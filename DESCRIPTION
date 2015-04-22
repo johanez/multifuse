@@ -5,9 +5,10 @@ Date: 2015-21-04
 AuthorsR: Johannes Reiche <johannes.reiche@wur.nl> 
 Maintainer: Johannes Reiche <johannes.reiche@wur.nl> 
 Description: Multi-sensor Time series Fusion (MulTiFuse) 
-Depends: R (>= 3.1.2), 
+Depends: R (>= 3.0.0), 
     raster,
     tseries,
+    zoo,
     bfast
 License: WUR
 LazyData: true
