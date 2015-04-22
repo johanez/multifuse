@@ -108,7 +108,7 @@ optimizeRegWeight <- function(xi,yi,w,ewf_max=2,ewf_steps=0.1,order=1,plot=FALSE
     mtext(4,text=expression('r'^2),line=2,col="blue",col.axis="blue")
     p <- axis(4, ylim=c(0,1),col="blue",col.axis="blue",lwd=1)
     abline(v = ewf.optimized,lty=3, col="red",lwd=2)
-    title(paste("- Weight Optimization Plot -","\n","\n","optimized ewf=", formatC(ewf.optimized,digits=1,format="f")," (pvalue=",formatC(pvalue.optimized,digits=4)," r²: ", round(summary(fit)$r.squared,digits=4),")",sep=""),cex.main=1)
+    title(paste("- Weight Optimization Plot -","\n","\n","optimized ewf=", formatC(ewf.optimized,digits=1,format="f")," (pvalue=",formatC(pvalue.optimized,digits=4)," rsquare: ", round(summary(fit)$r.squared,digits=4),")",sep=""),cex.main=1)
   }
   
   return(output)

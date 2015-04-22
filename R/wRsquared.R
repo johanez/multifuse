@@ -40,7 +40,7 @@ wRsquared <- function(x,y,weight=NULL,order=1,plot=FALSE,wpoints=FALSE,xlab="",y
     xx <- seq(r[1],r[2], length.out=250)
     predict(fit, data.frame(vx=xx))
     lines(xx, predict(fit, data.frame(vx=xx)), col='blue')
-    title(paste("- Correlation Plot -","\n","\n"," r²: ", round(summary(fit)$r.squared,digits=4),";   p-value: ",formatC(anova(fit)$'Pr(>F)'[1],digits=10,format="f"),"   [n=",length(na.omit(x)),"]",sep=""),cex.main=1)    
+    title(paste("- Correlation Plot -","\n","\n"," rsquare: ", round(summary(fit)$r.squared,digits=4),";   pvalue: ",formatC(anova(fit)$'Pr(>F)'[1],digits=10,format="f"),"   [n=",length(na.omit(x)),"]",sep=""),cex.main=1)    
   } 
   
   return(list(rsquared = summary(fit)$r.squared,pvalue = anova(fit)$'Pr(>F)'[1]))  
