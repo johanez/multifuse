@@ -1,6 +1,6 @@
 # multifuse
 
-Package to apply the Multi-sensor Time series Fusion (MulTiFuse) approach to two univariat time series (e.g. optical and SAR time series). 
+Package to apply the Multi-sensor Time series Fusion (MulTiFuse) approach to two univariate time series (e.g. optical and SAR time series). 
 The MulTiFuse approach has been published in [Reiche et al. 2015](http://www.sciencedirect.com/science/article/pii/S0034425714003885), 
 where it was used to fuse univariate Landsat NDVI and ALOS PALSAR L-band SAR backscatter time series.
 
