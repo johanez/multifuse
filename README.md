@@ -57,7 +57,7 @@ data(tsexample)
 ## plot example time series
 plot2ts(ndvi,hv,lab_ts1="Landsat NDVI",lab_ts2="ALOS PALSAR HV [dB]")
 ```
-(B) (Raster data) Landsat NDVI (2005 - 2012), ALOS PALSAR HV, HH and HVHH-ratio (2007 - 2010) time series for a pinus caribea planatation in Fiji. Landsat NDVI data is provided with original per pixel missing data and with 90 percent per pixel missing data. Three-monthly harvesting reference data are provided. For a detailed data description refer to [Reiche et al. 2015](http://www.sciencedirect.com/science/article/pii/S0034425714003885). 
+(B) (Raster data) Landsat NDVI (2005 - 2012), ALOS PALSAR HV, HH and HVHH-ratio (2007 - 2010) time series for a pinus caribaea plantation in Fiji. Landsat NDVI data is provided with original per pixel missing data and with 90 percent per pixel missing data. Three-monthly harvesting reference data are provided. For a detailed data description refer to [Reiche et al. 2015](http://www.sciencedirect.com/science/article/pii/S0034425714003885). 
 ```r
 ## load example data
 data(fiji)
