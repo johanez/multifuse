@@ -28,7 +28,7 @@ The package can be installed directly from github using devtools
 library(devtools)
 install_github('jreiche/multifuse')
 ```
-### Apply MulTiFuse
+### Apply the MulTiFuse approach
 ````r
 ## load multifuse package
 library(multifuse)
